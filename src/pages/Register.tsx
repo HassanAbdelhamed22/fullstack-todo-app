@@ -36,7 +36,7 @@ const RegisterPage = () => {
       const { status } = await axiosInstance.post("/auth/local/register", data);
       if (status == 200) {
         toast.success(
-          "You will navigate to the login page after 4 seconds  to login!",
+          "You will navigate to the login page after 4 seconds to login!",
           {
             position: "top-center",
             duration: 4000,

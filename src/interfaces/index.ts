@@ -4,6 +4,12 @@ export interface IRegisterInput {
   type: string;
 }
 
+export interface ILoginInput {
+  name: "identifier" | "password";
+  placeholder: string;
+  type: string;
+}
+
 export interface IErrorResponse {
   error: {
     details?: {
