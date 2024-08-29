@@ -4,10 +4,10 @@ import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
-    <>
+    <div className="bg-lightBg dark:bg-darkBg">
       <RouterProvider router={router} />
       <Toaster />
-    </>
+    </div>
   );
 };
 
