@@ -13,7 +13,7 @@ const buttonVariants = cva(
         danger:
           "bg-red-900 dark:bg-[#c2344d] dark:text-white dark:hover:bg-red-700",
         cancel:
-          "bg-gray-300 text-gray-700 dark:bg-[#f5f5fa] dark:text-dark hover:bg-gray-400 dark:hover:bg-gray-200",
+          "bg-gray-300 text-gray-700 dark:bg-[#f5f5fa] dark:text-lightText hover:bg-gray-400 dark:hover:bg-gray-300",
 
         // ** OUTLINE
         outline:
