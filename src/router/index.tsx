@@ -14,7 +14,6 @@ import PageNotFound from "../pages/PageNotFound";
 const storageKey = "loggedInUser";
 const userDataString = localStorage.getItem(storageKey);
 const userData = userDataString ? JSON.parse(userDataString) : null;
-console.log(userData);
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -66,6 +65,18 @@ const router = createBrowserRouter(
               data={userData}
             >
               <RegisterPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/forgetPass"
+          element={
+            <ProtectedRoute
+              isAllowed={!userData?.jwt}
+              redirectPath="/"
+              data={userData}
+            >
+              <h2>forgetPass</h2>
             </ProtectedRoute>
           }
         />
