@@ -51,3 +51,18 @@ export const loginSchema = yup
       ),
   })
   .required();
+
+export const todoEditSchema = yup.object({
+  title: yup
+    .string()
+    .required("Title is required!")
+    .min(10, "Title must be at least 10 characters long"),
+  description: yup
+    .string()
+    .optional()
+    .test(
+      "not-empty",
+      "Description cannot be empty!",
+      (value) => value === null || value === undefined || value.trim() !== ""
+    ),
+});
