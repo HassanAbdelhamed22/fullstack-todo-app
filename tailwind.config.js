@@ -26,9 +26,15 @@ export default {
           "60%": { transform: "scale(1.2)" },
           "100%": { transform: "scale(1)" },
         },
+        strikethrough: {
+          "0%": { textDecoration: "none" },
+          "50%": { textDecoration: "line-through" },
+          "100%": { textDecoration: "none" },
+        },
       },
       animation: {
         customScale: "customScale 0.5s ease-in-out",
+        strikethrough: "strikethrough 0.5s ease-in-out",
       },
     },
   },

@@ -12,6 +12,7 @@ import axiosInstance from "../config/axios.config";
 import img from "../assets/taking notes.svg";
 import google from "../assets/google.png";
 import { Link } from "react-router-dom";
+import { isLightMode } from "../utils/Helper";
 
 interface IFormInput {
   identifier: string;
@@ -44,8 +45,8 @@ const LoginPage = () => {
           position: "top-center",
           duration: 2000,
           style: {
-            backgroundColor: "black",
-            color: "white",
+            backgroundColor: isLightMode() ? "white" : "black",
+            color: isLightMode() ? "black" : "white",
             width: "fit-content",
           },
         });
@@ -63,6 +64,11 @@ const LoginPage = () => {
       toast.error(`${errorObj.response?.data?.error?.message}`, {
         position: "top-center",
         duration: 4000,
+        style: {
+          backgroundColor: isLightMode() ? "white" : "black",
+          color: isLightMode() ? "black" : "white",
+          width: "fit-content",
+        },
       });
     } finally {
       setIsLoading(false);

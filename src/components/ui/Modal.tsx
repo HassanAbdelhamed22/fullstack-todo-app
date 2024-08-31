@@ -5,10 +5,17 @@ interface IProps {
   isOpen: boolean;
   closeModal: () => void;
   title?: string;
+  description?: string;
   children: ReactNode;
 }
 
-export default function Modal({ closeModal, isOpen, title, children }: IProps) {
+export default function Modal({
+  closeModal,
+  isOpen,
+  title,
+  children,
+  description,
+}: IProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -31,11 +38,20 @@ export default function Modal({ closeModal, isOpen, title, children }: IProps) {
                 {title && (
                   <DialogTitle
                     as="h3"
-                    className="text-lg font-bold text-lightText dark:text-darkText text-center"
+                    className={`text-lg font-bold text-lightText dark:text-darkText ${
+                      title === "Edit this todo" || "Add new todo"
+                        ? "text-center"
+                        : ""
+                    }`}
                   >
                     {title}
                   </DialogTitle>
                 )}
+                <div className="mt-2">
+                  <p className="text-sm text-secondaryLightText dark:text-secondaryDarkText">
+                    {description}
+                  </p>
+                </div>
 
                 <div className="mt-4">{children}</div>
 

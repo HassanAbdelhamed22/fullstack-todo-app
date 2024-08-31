@@ -10,10 +10,7 @@ import HomePage from "../pages";
 import LoginPage from "../pages/Login";
 import RegisterPage from "../pages/Register";
 import PageNotFound from "../pages/PageNotFound";
-
-const storageKey = "loggedInUser";
-const userDataString = localStorage.getItem(storageKey);
-const userData = userDataString ? JSON.parse(userDataString) : null;
+import { userData } from "../utils/Helper";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

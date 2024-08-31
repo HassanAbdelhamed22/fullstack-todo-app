@@ -5,10 +5,9 @@ import DarkMode from "./ui/DarkMode";
 import img from "../assets/sticky-notes.png";
 import { useState } from "react";
 import closeIcon from "../assets/close.png";
+import { isLightMode, storageKey, userDataString } from "../utils/Helper";
 
 const Navbar = () => {
-  const storageKey = "loggedInUser";
-  const userDataString = localStorage.getItem(storageKey);
   const { pathname } = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -19,6 +18,11 @@ const Navbar = () => {
       {
         position: "top-center",
         duration: 2000,
+        style: {
+          backgroundColor: isLightMode() ? "white" : "black",
+          color: isLightMode() ? "black" : "white",
+          width: "fit-content",
+        },
       }
     );
     setTimeout(() => {

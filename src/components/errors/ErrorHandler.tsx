@@ -34,24 +34,24 @@ const ErrorHandler = ({ statusCode = 500, title = "Server Error" }: IProps) => {
             </svg>
           </div>
         </div>
-        <h2 className="mt-5 text-[36px] font-bold lg:text-[50px]">
+        <h2 className="mt-5 text-[36px] font-bold lg:text-[50px] text-lightText dark:text-darkText">
           {statusCode} - {title}
         </h2>
-        <p className="mt-5 lg:text-lg">
+        <p className="mt-5 lg:text-lg text-secondaryLightText dark:text-secondaryDarkText">
           Oops something went wrong. Try to refresh this page or <br /> feel
           free to contact us if the problem presists.
         </p>
         <div className="flex items-center justify-center space-x-4 my-10">
           <Link
             to={"/"}
-            className="inline-block bg-[#149eca] p-2 text-white hover:!text-white rounded-md"
+            className="inline-block bg-indigoLight p-2 text-white hover:!text-white rounded-md"
             reloadDocument
           >
             Home
           </Link>
           <Link
             to={pathname}
-            className="inline-block bg-[#149eca] p-2 text-white hover:!text-white rounded-md"
+            className="inline-block bg-indigoLight p-2 text-white hover:!text-white rounded-md"
             reloadDocument
           >
             Refresh
