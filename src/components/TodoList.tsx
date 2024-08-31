@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import useAuthenticatedQuery from "../hooks/useAuthenticatedQuery";
+import useCustomQuery from "../hooks/useCustomQuery";
 import Button from "./ui/Button";
 import Input from "./ui/Input";
 import Modal from "./ui/Modal";
@@ -30,7 +30,7 @@ const TodoList = () => {
     completed: false,
   });
 
-  const { isLoading, data } = useAuthenticatedQuery({
+  const { isLoading, data } = useCustomQuery({
     queryKey: ["TodoList", `${queryVersion}`],
     url: "/users/me?populate=todos",
     config: {
@@ -308,37 +308,40 @@ const TodoList = () => {
       </div>
       <div className="space-y-4 first:mt-20">
         {data?.todos.length ? (
-          data.todos.map((todo: ITodo, index: number) => (
-            <div
-              key={todo.id}
-              className={`flex items-center justify-between hover:bg-gray-100 duration-300 p-3 rounded-md even:bg-gray-100 text-lightText dark:text-darkText dark:even:bg-[#282828] dark:hover:bg-[#282828] cursor-pointer`}
-            >
-              <p
-                className={`w-full font-semibold cursor-pointer ${
-                  todo.completed ? "line-through animate-strikethrough" : ""
-                }`}
-                onClick={() => onToggleComplete(todo)}
+          data.todos
+            ?.slice()
+            .reverse()
+            .map((todo: ITodo, index: number) => (
+              <div
+                key={todo.id}
+                className={`flex items-center justify-between hover:bg-gray-100 duration-300 p-3 rounded-md even:bg-gray-100 text-lightText dark:text-darkText dark:even:bg-[#282828] dark:hover:bg-[#282828] cursor-pointer`}
               >
-                {index + 1} - {todo.title}
-              </p>
-              <div className="flex items-center justify-end w-full space-x-3">
-                <Button
-                  className="bg-indigoLight"
-                  size={"sm"}
-                  onClick={() => onOpenEditModal(todo)}
+                <p
+                  className={`w-full font-semibold cursor-pointer ${
+                    todo.completed ? "line-through animate-strikethrough" : ""
+                  }`}
+                  onClick={() => onToggleComplete(todo)}
                 >
-                  Edit
-                </Button>
-                <Button
-                  variant={"danger"}
-                  size={"sm"}
-                  onClick={() => openConfirmModal(todo)}
-                >
-                  Remove
-                </Button>
+                  {index + 1} - {todo.title}
+                </p>
+                <div className="flex items-center justify-end w-full space-x-3">
+                  <Button
+                    className="bg-indigoLight"
+                    size={"sm"}
+                    onClick={() => onOpenEditModal(todo)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant={"danger"}
+                    size={"sm"}
+                    onClick={() => openConfirmModal(todo)}
+                  >
+                    Remove
+                  </Button>
+                </div>
               </div>
-            </div>
-          ))
+            ))
         ) : (
           <h3>No todos yet</h3>
         )}
@@ -372,10 +375,8 @@ const TodoList = () => {
               <Button
                 variant={"cancel"}
                 fullWidth
-                onClick={(e) => {
-                  e.preventDefault();
-                  onCloseAddModal();
-                }}
+                onClick={onCloseAddModal}
+                type="button"
               >
                 Cancel
               </Button>
@@ -412,10 +413,8 @@ const TodoList = () => {
               <Button
                 variant={"cancel"}
                 fullWidth
-                onClick={(e) => {
-                  e.preventDefault();
-                  onCloseEditModal();
-                }}
+                onClick={onCloseEditModal}
+                type="button"
               >
                 Cancel
               </Button>
@@ -434,7 +433,12 @@ const TodoList = () => {
             <Button variant={"danger"} onClick={onRemove} fullWidth>
               Yse, remove
             </Button>
-            <Button variant={"cancel"} onClick={closeConfirmModal} fullWidth>
+            <Button
+              variant={"cancel"}
+              onClick={closeConfirmModal}
+              fullWidth
+              type="button"
+            >
               Cancel
             </Button>
           </div>
