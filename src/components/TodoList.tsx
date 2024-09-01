@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { isLightMode, userData } from "../utils/Helper";
 import { AxiosError } from "axios";
 import Skeleton from "./Skeleton";
+import { faker } from "@faker-js/faker";
 
 const TodoList = () => {
   let [queryVersion, setQueryVersion] = useState(1);
@@ -103,6 +104,32 @@ const TodoList = () => {
       ...todoToEdit,
       [name]: value,
     });
+  };
+
+  const onGenerateTodos = async () => {
+    for (let i = 0; i < 100; i++) {
+      try {
+        const { data } = await axiosInstance.post(
+          `/todos`,
+          {
+            data: {
+              title: faker.word.words(5),
+              description: faker.lorem.paragraph(2),
+              user: userData.user.id,
+            },
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${userData.jwt}`,
+            },
+          }
+        );
+
+        console.log(data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   const onRemove = async () => {
@@ -304,6 +331,13 @@ const TodoList = () => {
       <div className="mt-20 mb-8 flex items-center justify-center gap-2">
         <Button className="bg-indigoLight" onClick={onOpenAddModal}>
           Add new todo
+        </Button>
+        <Button
+          variant={"outline"}
+          className="text-lightText dark:text-darkText"
+          onClick={onGenerateTodos}
+        >
+          Generate Todos
         </Button>
       </div>
       <div className="space-y-4 first:mt-20">
