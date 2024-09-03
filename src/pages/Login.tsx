@@ -30,7 +30,6 @@ const LoginPage = () => {
 
   // * Handlers
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    console.log(data);
     //? 1 - Pending => Loading
     setIsLoading(true);
 
@@ -92,7 +91,7 @@ const LoginPage = () => {
           {...register(name)}
         />
         {errors[name] && (
-          <p className="text-red-700 text-sm font-semibold mt-1">
+          <p className="text-red-700 dark:text-red-500 text-sm font-semibold mt-1">
             {errors[name]?.message}
           </p>
         )}

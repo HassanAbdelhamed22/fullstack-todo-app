@@ -11,6 +11,7 @@ import LoginPage from "../pages/Login";
 import RegisterPage from "../pages/Register";
 import PageNotFound from "../pages/PageNotFound";
 import { userData } from "../utils/Helper";
+import TodosPage from "../components/Todos";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,18 @@ const router = createBrowserRouter(
               data={userData}
             >
               <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/todos"
+          element={
+            <ProtectedRoute
+              isAllowed={userData?.jwt}
+              redirectPath="/login"
+              data={userData}
+            >
+              <TodosPage />
             </ProtectedRoute>
           }
         />

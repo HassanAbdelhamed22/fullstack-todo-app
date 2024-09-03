@@ -35,7 +35,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="max-w-lg mx-4 md:mx-auto px-5 md:px-2 py-2 rounded-full border shadow-lg my-5 border-borderLight dark:border-borderDark flex items-center justify-between">
+    <nav className="max-w-xl mx-4 md:mx-auto px-5 md:px-2 py-2 rounded-full border shadow-lg my-5 border-borderLight dark:border-borderDark flex items-center justify-between">
       <NavLink className="flex items-center" to="/">
         <img src={img} alt="logo" className="w-10 h-10" />
         <span className="ml-2 text-lightText dark:text-darkText font-semibold text-lg">
@@ -45,6 +45,18 @@ const Navbar = () => {
       <div className="hidden md:flex items-center space-x-3">
         {userDataString ? (
           <>
+            <NavLink
+              to="/todos"
+              className={({ isActive }) =>
+                `block text-center duration-200 font-semibold ${
+                  isActive
+                    ? "text-indigoLight dark:text-indigoDark"
+                    : "text-lightText dark:text-darkText"
+                }`
+              }
+            >
+              Todos
+            </NavLink>
             <NavLink
               to="/profile"
               className={({ isActive }) =>
@@ -58,7 +70,7 @@ const Navbar = () => {
               Profile
             </NavLink>
             <Button
-              className="cursor-pointer text-sm bg-indigoLight"
+              className="cursor-pointer text-sm bg-indigoLight dark:bg-indigoDark text-darkText dark:text-lightText"
               onClick={onLogout}
             >
               Logout
@@ -140,7 +152,7 @@ const Navbar = () => {
                   </li>
                   <li className="py-2 w-full">
                     <Button
-                      className="cursor-pointer text-sm"
+                      className="cursor-pointer text-sm bg-indigoLight dark:bg-indigoDark text-darkText dark:text-lightText"
                       onClick={() => {
                         onLogout();
                         toggleMenu();

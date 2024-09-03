@@ -26,6 +26,8 @@ export interface ITodo {
   title: string;
   description: string;
   completed: boolean;
+  createdAt?: string | undefined;
+  updatedAt?: string | undefined;
 }
 
 export interface ITodoEditInput {

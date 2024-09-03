@@ -39,9 +39,9 @@ export default function Modal({
                   <DialogTitle
                     as="h3"
                     className={`text-lg font-bold text-lightText dark:text-darkText ${
-                      title === "Edit this todo" || "Add new todo"
+                      title === "Edit this todo" || title === "Add new todo"
                         ? "text-center"
-                        : ""
+                        : "mt-3 max-w-sm"
                     }`}
                   >
                     {title}

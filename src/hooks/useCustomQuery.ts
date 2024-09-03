@@ -6,6 +6,7 @@ interface IAuthenticatedQuery {
   queryKey: string[];
   url: string;
   config?: AxiosRequestConfig;
+  onSuccess?: (data: any) => void;
 }
 
 const useCustomQuery = ({ queryKey, url, config }: IAuthenticatedQuery) => {
