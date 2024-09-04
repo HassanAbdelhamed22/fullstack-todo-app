@@ -1,3 +1,5 @@
+import React from "react";
+
 interface IProps {
   page: number;
   pageCount: number;
@@ -5,16 +7,137 @@ interface IProps {
   isLoading: boolean;
   onClickPrev: () => void;
   onClickNext: () => void;
+  onPageChange: (page: number) => void;
 }
 
-const Paginator = ({
+const Paginator: React.FC<IProps> = ({
   page,
   pageCount,
   onClickPrev,
   isLoading,
   total,
   onClickNext,
-}: IProps) => {
+  onPageChange,
+}) => {
+  const renderPageNumbers = () => {
+    const pageNumbers = [];
+
+    if (pageCount <= 7) {
+      for (let i = 1; i <= pageCount; i++) {
+        pageNumbers.push(
+          <button
+            key={i}
+            onClick={() => onPageChange(i)}
+            className={`w-8 h-8 flex items-center justify-center rounded-full mx-1 ${
+              i === page
+                ? "bg-indigo-600 text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
+          >
+            {i}
+          </button>
+        );
+      }
+    } else {
+      // Always show first two pages
+      for (let i = 1; i <= 2; i++) {
+        pageNumbers.push(
+          <button
+            key={i}
+            onClick={() => onPageChange(i)}
+            className={`w-8 h-8 flex items-center justify-center rounded-full mx-1 ${
+              i === page
+                ? "bg-indigo-600 text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
+          >
+            {i}
+          </button>
+        );
+      }
+
+      // Add dots if current page is not within first 3 or last 3 pages
+      if (page > 3 && page < pageCount - 2) {
+        pageNumbers.push(
+          <span key="dots1" className="mx-1">
+            ...
+          </span>
+        );
+        pageNumbers.push(
+          <button
+            key={page}
+            onClick={() => onPageChange(page)}
+            className="w-8 h-8 flex items-center justify-center rounded-full mx-1 bg-indigo-600 text-white"
+          >
+            {page}
+          </button>
+        );
+        pageNumbers.push(
+          <span key="dots2" className="mx-1">
+            ...
+          </span>
+        );
+      } else if (page <= 3) {
+        pageNumbers.push(
+          <button
+            key={3}
+            onClick={() => onPageChange(3)}
+            className={`w-8 h-8 flex items-center justify-center rounded-full mx-1 ${
+              3 === page
+                ? "bg-indigo-600 text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
+          >
+            3
+          </button>
+        );
+        pageNumbers.push(
+          <span key="dots" className="mx-1">
+            ...
+          </span>
+        );
+      } else {
+        pageNumbers.push(
+          <span key="dots" className="mx-1">
+            ...
+          </span>
+        );
+        pageNumbers.push(
+          <button
+            key={pageCount - 2}
+            onClick={() => onPageChange(pageCount - 2)}
+            className={`w-8 h-8 flex items-center justify-center rounded-full mx-1 ${
+              pageCount - 2 === page
+                ? "bg-indigo-600 text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
+          >
+            {pageCount - 2}
+          </button>
+        );
+      }
+
+      // Always show last two pages
+      for (let i = pageCount - 1; i <= pageCount; i++) {
+        pageNumbers.push(
+          <button
+            key={i}
+            onClick={() => onPageChange(i)}
+            className={`w-8 h-8 flex items-center justify-center rounded-full mx-1 ${
+              i === page
+                ? "bg-indigo-600 text-white"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+            }`}
+          >
+            {i}
+          </button>
+        );
+      }
+    }
+
+    return pageNumbers;
+  };
+
   return (
     <div className="flex-col justify-center items-center">
       <p className="text-sm text-gray-600 dark:text-gray-300 mx-3 flex items-center justify-center mb-2">
@@ -22,63 +145,52 @@ const Paginator = ({
         <span className="mx-1 font-semibold text-lightText dark:text-darkText text-md-1">
           {page}
         </span>{" "}
-        to
+        of
         <span className="mx-1 font-semibold text-lightText dark:text-darkText">
           {pageCount}
         </span>{" "}
-        of
-        <span className="mx-1 font-semibold text-lightText dark:text-darkText">
-          {total}
-        </span>{" "}
-        Records
+        ({total} Records)
       </p>
 
       <div className="flex items-center justify-center">
         <button
           type="button"
-          className="bg-gray-800 dark:bg-gray-300 text-white dark:text-lightText rounded-l-md border-l border border-gray-100 flex items-center justify-center px-4 h-10  text-base font-medium  hover:bg-indigo-600 hover:text-white dark:hover:text-white  dark:border-gray-700  dark:hover:bg-indigo-600  disabled:bg-gray-400 dark:disabled:bg-gray-500 dark:disabled:text-white disabled:hover:bg-gray-400
-          disabled:cursor-not-allowed duration-300"
+          className="w-8 h-8 flex items-center justify-center rounded-full mx-1 bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
           disabled={page === 1 || isLoading}
           onClick={onClickPrev}
         >
           <svg
-            className="w-3.5 h-3.5 me-2 rtl:rotate-180"
-            aria-hidden="true"
+            className="w-4 h-4"
+            fill="currentColor"
+            viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
           >
             <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M13 5H1m0 0 4 4M1 5l4-4"
+              fillRule="evenodd"
+              d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+              clipRule="evenodd"
             />
           </svg>
-          Previous
         </button>
+
+        {renderPageNumbers()}
+
         <button
           type="button"
-          className="bg-gray-800 dark:bg-gray-300 text-white dark:text-lightText rounded-r-md border-r border border-gray-100 flex items-center justify-center px-4 h-10 me-3 text-base font-medium  hover:bg-indigo-600 hover:text-white dark:hover:text-white  dark:border-gray-700  dark:hover:bg-indigo-600  disabled:bg-gray-400 dark:disabled:bg-gray-500 dark:disabled:text-white disabled:hover:bg-gray-400
-          disabled:cursor-not-allowed duration-300"
+          className="w-8 h-8 flex items-center justify-center rounded-full mx-1 bg-gray-200 text-gray-700 hover:bg-gray-300 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed"
           disabled={page === pageCount || isLoading}
           onClick={onClickNext}
         >
-          Next
           <svg
-            className="w-3.5 h-3.5 ms-2 rtl:rotate-180"
-            aria-hidden="true"
+            className="w-4 h-4"
+            fill="currentColor"
+            viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
           >
             <path
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9"
+              fillRule="evenodd"
+              d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+              clipRule="evenodd"
             />
           </svg>
         </button>

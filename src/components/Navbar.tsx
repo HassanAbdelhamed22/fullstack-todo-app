@@ -46,18 +46,6 @@ const Navbar = () => {
         {userDataString ? (
           <>
             <NavLink
-              to="/todos"
-              className={({ isActive }) =>
-                `block text-center duration-200 font-semibold ${
-                  isActive
-                    ? "text-indigoLight dark:text-indigoDark"
-                    : "text-lightText dark:text-darkText"
-                }`
-              }
-            >
-              Todos
-            </NavLink>
-            <NavLink
               to="/profile"
               className={({ isActive }) =>
                 `block text-center duration-200 font-semibold ${

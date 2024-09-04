@@ -5,6 +5,18 @@ export interface IRegisterInput {
   label: string;
 }
 
+export interface IUpdateInput {
+  name: "email" | "username";
+  type: string;
+  label: string;
+}
+
+export interface IChangePassword {
+  currentPassword: string;
+  password: string;
+  passwordConfirmation: string;
+}
+
 export interface ILoginInput {
   name: "identifier" | "password";
   placeholder: string;

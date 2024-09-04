@@ -77,9 +77,9 @@ const LoginPage = () => {
   // * Renders
   const renderLoginForm = LOGIN_FORM.map(
     ({ name, placeholder, type, label }, idx) => (
-      <div key={idx}>
+      <div key={idx} className="mb-4">
         <label
-          className="text-sm mb-2 block text-lightText dark:text-darkText"
+          className="text-sm font-medium mb-2 block text-lightText dark:text-darkText"
           htmlFor={name}
         >
           {label}
@@ -100,43 +100,54 @@ const LoginPage = () => {
   );
 
   return (
-    <div className="flex items-center justify-center p-4 bg-lightBg dark:bg-darkBg">
-      <div className="flex items-center justify-between flex-col-reverse md:flex-row border border-borderLight dark:border-borderDark rounded-lg shadow-lg w-full max-w-4xl">
-        <div className="p-8 flex-[40%]">
+    <div className="flex items-center justify-center min-h-screen p-4 bg-lightBg dark:bg-darkBg">
+      <div className="flex items-stretch justify-between flex-col-reverse md:flex-row border border-borderLight dark:border-borderDark rounded-lg shadow-2xl w-full max-w-5xl overflow-hidden">
+        <div className="p-8 md:p-12 flex-[45%] flex flex-col justify-center">
           <h2 className="mb-4 text-4xl font-bold text-lightText dark:text-darkText">
-            Login!
+            Welcome Back!
           </h2>
-          <p className="text-secondaryLightText dark:text-secondaryDarkText mb-8 text-sm">
+          <p className="text-secondaryLightText dark:text-secondaryDarkText mb-8">
             Login with your data that you entered during your registration.
           </p>
           <form
-            className="space-y-3 max-w-sm mx-auto"
+            className="space-y-4 max-w-sm"
             onSubmit={handleSubmit(onSubmit)}
           >
             {renderLoginForm}
-            <Link
-              to="/forgetPass"
-              className="text-sm text-indigoLight dark:text-indigoDark hover:underline flex pt-2 justify-between pb-4 transition duration-300"
-            >
-              <div></div>
-              Forget Password?
-            </Link>
+            <div className="flex justify-end">
+              <Link
+                to="/forgetPass"
+                className="text-sm text-indigoLight dark:text-indigoDark hover:underline transition duration-300"
+              >
+                Forgot Password?
+              </Link>
+            </div>
             <Button
               type="submit"
               fullWidth
               isLoading={isLoading}
-              className="!bg-indigoLight hover:bg-indigo-800 transition-all duration-300 text-white"
+              className="bg-gradient-to-br from-indigo-600 to-indigo-400 dark:from-indigo-400 dark:to-[#DCDAFA] transition-all duration-300 text-white dark:text-gray-900"
             >
               Login
             </Button>
+            <div className="relative my-6">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white dark:bg-darkBg text-gray-500">
+                  Or continue with
+                </span>
+              </div>
+            </div>
             <Button
               type="button"
-              className="!bg-inherit border border-borderLight dark:border-borderDark w-full flex items-center justify-center gap-2 text-lightText dark:text-darkText hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+              className="bg-inherit dark:bg-inherit border border-gray-300 dark:border-gray-600 w-full flex items-center justify-center gap-2 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
             >
-              <img src={google} alt="google icon" className="w-6 h-6" />
+              <img src={google} alt="google icon" className="w-5 h-5" />
               Sign in with Google
             </Button>
-            <p className="text-sm text-secondaryLightText dark:text-secondaryDarkText text-center">
+            <p className="text-sm text-secondaryLightText dark:text-secondaryDarkText text-center mt-6">
               Don't have an account?{" "}
               <Link
                 to="/register"
@@ -147,20 +158,21 @@ const LoginPage = () => {
             </p>
           </form>
         </div>
-        <div className="bg-secondaryLightBg dark:bg-secondaryDarkBg rounded-t-lg md:rounded-r-lg flex-[60%] h-full w-full">
-          <div className="flex items-center justify-center flex-col space-y-3 pt-12 pb-8">
-            <h3 className="text-xl md:text-2xl text-secondaryLightText dark:text-secondaryDarkText">
-              Nice to see you again.
+        <div className="bg-secondaryLightBg dark:bg-secondaryDarkBg flex-[55%] relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-indigo-400 dark:from-indigo-400 dark:to-[#DCDAFA] opacity-90"></div>
+          <div className="relative h-full flex flex-col justify-center items-center text-white dark:text-gray-900 py-12 px-4">
+            <h3 className="text-2xl md:text-3xl mb-4 text-center font-semibold">
+              Nice to see you again
             </h3>
-            <h1 className="text-4xl md:text-5xl font-bold text-indigoLight dark:text-indigoDark">
-              Welcome Back!
+            <h1 className="text-4xl md:text-5xl font-bold mb-8 text-center">
+              Let's Get Started!
             </h1>
+            <img
+              src={img}
+              alt="login img"
+              className="max-w-full h-auto max-h-64 md:max-h-80 object-contain animate-float"
+            />
           </div>
-          <img
-            src={img}
-            alt="login img"
-            className="max-w-full p-4 h-72 md:h-[400px] object-contain"
-          />
         </div>
       </div>
     </div>

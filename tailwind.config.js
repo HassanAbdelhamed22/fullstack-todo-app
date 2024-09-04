@@ -31,10 +31,15 @@ export default {
           "50%": { textDecoration: "line-through" },
           "100%": { textDecoration: "none" },
         },
+        float: {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
       },
       animation: {
         customScale: "customScale 0.5s ease-in-out",
         strikethrough: "strikethrough 0.5s ease-in-out",
+        float: "float 3s ease-in-out infinite",
       },
     },
   },

@@ -1,4 +1,4 @@
-import { ILoginInput, IRegisterInput } from "../interfaces";
+import { ILoginInput, IRegisterInput, IUpdateInput } from "../interfaces";
 
 export const REGISTER_FORM: IRegisterInput[] = [
   {
@@ -18,6 +18,19 @@ export const REGISTER_FORM: IRegisterInput[] = [
     placeholder: "Password",
     type: "password",
     label: "Enter your password",
+  },
+];
+
+export const UPDATE_FORM: IUpdateInput[] = [
+  {
+    name: "username",
+    type: "text",
+    label: "Enter your username",
+  },
+  {
+    name: "email",
+    type: "email",
+    label: "Enter your email address",
   },
 ];
 
